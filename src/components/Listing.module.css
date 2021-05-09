@@ -1,0 +1,41 @@
+.root {
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11), 0 2px 2px rgba(0, 0, 0, 0.11),
+    0 4px 4px rgba(0, 0, 0, 0.11), 0 6px 8px rgba(0, 0, 0, 0.11),
+    0 8px 16px rgba(0, 0, 0, 0.11);
+  padding: 24px 32px;
+  margin: 24px 0;
+  border-radius: 8px;
+  display: flex;
+  transition: transform 0.15s cubic-bezier(0.1, 0.83, 0.67, 0.97);
+}
+
+.root:hover {
+  transform: scale(1.02);
+}
+
+.image {
+  width: 150px;
+  border-radius: 8px;
+  margin-right: 32px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+p {
+  margin: 8px 0;
+}
+
+.address {
+  font-style: italic;
+  opacity: 0.85;
+}
