@@ -1,29 +1,33 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import axios from "axios";
+import axios from "axios";
 
 import listingsResponse from "../mocks/listingsResponse";
 
 const initialState = { entities: [], loading: false, error: null };
 
 export const fetchListings = createAsyncThunk("listings/fetch", async () => {
-  // const options = {
-  //   method: "GET",
-  //   url: "https://realty-mole-property-api.p.rapidapi.com/rentalListings",
-  //   params: {
-  //     bedrooms: "2",
-  //     city: "San Francisco",
-  //     state: "CA",,
-  //   },
-  //   headers: {
-  //     "x-rapidapi-key": "85580dcf96msh3f2a8cc0c66e4f2p184513jsn62876cda7304",
-  //     "x-rapidapi-host": "realty-mole-property-api.p.rapidapi.com",
-  //   },
-  // };
+  let response;
+  if (process.env.REACT_APP_USING_API !== "true") {
+    response = await new Promise((resolve) =>
+      setTimeout(() => resolve(listingsResponse), 1000)
+    );
+  } else {
+    const options = {
+      method: "GET",
+      url: "https://realty-mole-property-api.p.rapidapi.com/rentalListings",
+      params: {
+        bedrooms: "2",
+        city: "San Francisco",
+        state: "CA",
+      },
+      headers: {
+        "x-rapidapi-key": "85580dcf96msh3f2a8cc0c66e4f2p184513jsn62876cda7304",
+        "x-rapidapi-host": "realty-mole-property-api.p.rapidapi.com",
+      },
+    };
 
-  // const response = await axios.request(options);
-  const response = await new Promise((resolve) =>
-    setTimeout(() => resolve(listingsResponse), 1000)
-  );
+    response = await axios.request(options);
+  }
 
   if (response.status !== 200) {
     throw new Error(response.statusText);
