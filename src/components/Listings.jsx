@@ -9,7 +9,7 @@ const Listings = ({ listings }) => {
   return (
     <div className={styles.root}>
       {listings.map((listing) => (
-        <Listing listing={listing} />
+        <Listing key={listing.id} listing={listing} />
       ))}
     </div>
   );

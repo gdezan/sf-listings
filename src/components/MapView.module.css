@@ -4,6 +4,13 @@
   position: static;
 }
 
+@media screen and (max-width: 760px) {
+  .root {
+    width: 100% !important;
+    height: 40% !important;
+  }
+}
+
 h4 {
   font-weight: bold;
 }
