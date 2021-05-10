@@ -1,0 +1,9 @@
+.root {
+  width: 40% !important;
+  height: 100%;
+  position: static;
+}
+
+h4 {
+  font-weight: bold;
+}

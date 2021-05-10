@@ -6,19 +6,25 @@ import { fetchListings } from "../reducers/Listings";
 
 import MapView from "../components/MapView";
 import Listings from "../components/Listings";
+import Loading from "./Loading";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
   const listings = useSelector((state) => state.listings.entities);
+  const isLoadingListings = useSelector((state) => state.listings.loading);
 
   useEffect(() => {
     dispatch(fetchListings());
   }, [dispatch]);
 
+  if (isLoadingListings) {
+    return <Loading />;
+  }
+
   return (
     <div className={styles.root}>
       <Listings listings={listings} />
-      <MapView />
+      <MapView listings={listings} />
     </div>
   );
 };
