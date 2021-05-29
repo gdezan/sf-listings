@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Listings.module.css";
+import { Box } from "@chakra-ui/layout";
 
 import { ListingsType } from "../types";
 
@@ -7,11 +7,11 @@ import Listing from "./Listing";
 
 const Listings = ({ listings }) => {
   return (
-    <div className={styles.root}>
+    <Box w="100%" h="100%" minH="100%" boxSizing="border-box" overflow="auto">
       {listings.map((listing) => (
         <Listing key={listing.id} listing={listing} />
       ))}
-    </div>
+    </Box>
   );
 };
 Listings.propTypes = {

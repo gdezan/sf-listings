@@ -1,8 +1,21 @@
 import React from "react";
-import styles from "./Loading.module.css";
+import { Flex } from "@chakra-ui/layout";
 
 const Loading = () => {
-  return <div className={styles.root}>Loading...</div>;
+  return (
+    <Flex
+      w="100%"
+      h="100%"
+      bgColor="white"
+      align="center"
+      justify="center"
+      fontSize="2xl"
+      fontWeight="500"
+      opacity={0.7}
+    >
+      Loading...
+    </Flex>
+  );
 };
 
 export default Loading;

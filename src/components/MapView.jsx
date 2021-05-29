@@ -4,6 +4,7 @@ import { Map, GoogleApiWrapper, InfoWindow, Marker } from "google-maps-react";
 import styles from "./MapView.module.css";
 
 import { ListingsType } from "../types";
+import { Box } from "@chakra-ui/layout";
 
 const MapView = ({ google, listings }) => {
   const [selectedPlace, setSelectedPlace] = useState(null);
@@ -24,7 +25,8 @@ const MapView = ({ google, listings }) => {
   };
 
   return (
-    <Map
+    <Box
+      as={Map}
       google={google}
       zoom={12}
       className={styles.root}
@@ -59,7 +61,7 @@ const MapView = ({ google, listings }) => {
           <h4>{selectedPlace?.name}</h4>
         </div>
       </InfoWindow>
-    </Map>
+    </Box>
   );
 };
 MapView.propTypes = {

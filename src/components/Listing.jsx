@@ -1,29 +1,39 @@
 import React from "react";
-import styles from "./Listing.module.css";
+import { Grid, Heading, Stack, Text } from "@chakra-ui/layout";
+import { Image } from "@chakra-ui/image";
 
 import { ListingType } from "../types";
 import ApartmentImage from "../assets/apartment.jpg";
 import { currency } from "../formatters";
 
 const Listing = ({ listing }) => {
-  const {
-    bedrooms,
-    addressLine1,
-    bathrooms,
-    price,
-    formattedAddress,
-  } = listing;
+  const { bedrooms, addressLine1, bathrooms, price, formattedAddress } =
+    listing;
 
   return (
-    <div className={styles.root}>
-      <img className={styles.image} src={ApartmentImage} alt="Apartment" />
-      <div className={styles.info}>
-        <h2>{addressLine1}</h2>
-        <h3>{`${currency(price)}`}</h3>
-        <p>{`Bedrooms: ${bedrooms} - Bathrooms: ${bathrooms}`}</p>
-        <p className={styles.address}>{formattedAddress}</p>
-      </div>
-    </div>
+    <Grid
+      bgColor="white"
+      px={8}
+      py={2}
+      my={4}
+      templateColumns="calc(40% - 16px) calc(60% - 16px)"
+      columnGap={8}
+    >
+      <Image borderRadius={12} w="100%" src={ApartmentImage} alt="Apartment" />
+      <Stack>
+        <Heading as="h2" fontSize="2xl" fontWeight={700} mb={2}>
+          {addressLine1}
+        </Heading>
+        <Text isTruncated opacity={0.6} mb={2}>
+          Address: {formattedAddress}
+        </Text>
+        <Text isTruncated opacity={0.6} mb={2}>
+          Phone: +00 123456789
+        </Text>
+        <Text>{`${currency(price)}`}</Text>
+        <Text>{`Bedrooms: ${bedrooms} - Bathrooms: ${bathrooms}`}</Text>
+      </Stack>
+    </Grid>
   );
 };
 
