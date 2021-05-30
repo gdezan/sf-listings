@@ -13,9 +13,11 @@ const Listings = ({ listings, setOrderingType, ordering, orderingType }) => {
   console.log(listings[0]);
 
   return (
-    <Box px={8} py={10}>
+    <Box px={8} py={5}>
       <Flex justify="space-between" align="center">
-        <Text color="gray.500">{`Showing ${listings.length} results...`}</Text>
+        <Text color="gray.500">{`Showing ${listings.length} result${
+          listings.length === 1 ? "" : "s"
+        }...`}</Text>
         <HStack>
           <OrderBy
             setOrderingType={setOrderingType}

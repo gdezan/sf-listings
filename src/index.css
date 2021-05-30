@@ -98,7 +98,8 @@ video {
   font: inherit;
   vertical-align: baseline;
   /* font-family: "Work Sans", sans-serif; */
-  font-family: "Hind", sans-serif;
+  /* font-family: "Hind", sans-serif; */
+  font-family: "Asap", sans-serif;
   color: #222222;
 }
 /* HTML5 display-role reset for older browsers */
