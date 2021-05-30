@@ -1,52 +1,55 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
+import { OrderingTypes } from "../constants";
 
-import listingsResponse from "../mocks/listingsResponse";
+import { fetchListings } from "./helpers/Listings";
 
-const initialState = { entities: [], loading: false, error: null };
-
-export const fetchListings = createAsyncThunk("listings/fetch", async () => {
-  let response;
-  if (process.env.REACT_APP_USING_API !== "true") {
-    response = await new Promise((resolve) =>
-      setTimeout(() => resolve(listingsResponse), 1000)
-    );
-  } else {
-    const options = {
-      method: "GET",
-      url: "https://realty-mole-property-api.p.rapidapi.com/rentalListings",
-      params: {
-        bedrooms: "2",
-        city: "San Francisco",
-        state: "CA",
-      },
-      headers: {
-        "x-rapidapi-key": "85580dcf96msh3f2a8cc0c66e4f2p184513jsn62876cda7304",
-        "x-rapidapi-host": "realty-mole-property-api.p.rapidapi.com",
-      },
-    };
-
-    response = await axios.request(options);
-  }
-
-  if (response.status !== 200) {
-    throw new Error(response.statusText);
-  }
-
-  const filteredListings = response.data.filter(
-    (listing) =>
-      listing.price <= 5000 &&
-      listing.propertyType === "Apartment" &&
-      listing.status === "Active"
-  );
-
-  return filteredListings;
-});
+const initialState = {
+  entities: [],
+  loading: false,
+  error: null,
+  orderingType: null,
+  ordering: "asc",
+};
 
 const listingsSlice = createSlice({
   name: "listings",
   initialState,
-  reducers: {},
+  reducers: {
+    setOrderingType: (state, action) => {
+      const orderingType = action.payload;
+
+      let newOrdering = state.ordering === "asc" ? "desc" : "asc";
+      if (orderingType === state.orderingType) {
+        state.ordering = newOrdering;
+      } else {
+        newOrdering = "asc";
+        state.orderingType = orderingType;
+        state.ordering = newOrdering;
+      }
+
+      state.entities = state.entities.sort((a, b) => {
+        let orderField;
+        switch (orderingType) {
+          case OrderingTypes.PRICE:
+            orderField = "price";
+            break;
+          case OrderingTypes.TIME_LISTED:
+            orderField = "listedDate";
+            break;
+          case OrderingTypes.SQUARE_FOOTAGE:
+            orderField = "squareFootage";
+            break;
+          default:
+            throw new Error("Unexpected ordering type");
+        }
+
+        if (newOrdering === "asc") {
+          return b[orderField] - a[orderField];
+        }
+        return a[orderField] - b[orderField];
+      });
+    },
+  },
   extraReducers: {
     [fetchListings.pending]: (state, action) => {
       state.loading = true;
@@ -65,4 +68,7 @@ const listingsSlice = createSlice({
   },
 });
 
+export { fetchListings } from "./helpers/Listings";
+
+export const { setOrderingType } = listingsSlice.actions;
 export default listingsSlice.reducer;

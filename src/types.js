@@ -14,7 +14,7 @@ export const ListingType = shape({
   zipCode: string,
   formattedAddress: string,
   lastSeen: string,
-  listedDate: string,
+  listedDate: number,
   status: string,
   removedDate: string,
   daysOnMarket: number,
