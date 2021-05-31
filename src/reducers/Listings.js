@@ -9,6 +9,7 @@ const initialState = {
   error: null,
   orderingType: null,
   ordering: "asc",
+  selectedListing: null,
 };
 
 const listingsSlice = createSlice({
@@ -49,6 +50,14 @@ const listingsSlice = createSlice({
         return a[orderField] - b[orderField];
       });
     },
+
+    selectListing: (state, action) => {
+      state.selectedListing = action.payload;
+    },
+
+    clearSelectedListing: state => {
+      state.selectedListing = null;
+    },
   },
   extraReducers: {
     [fetchListings.pending]: (state, action) => {
@@ -70,5 +79,5 @@ const listingsSlice = createSlice({
 
 export { fetchListings } from "./helpers/Listings";
 
-export const { setOrderingType } = listingsSlice.actions;
+export const { setOrderingType, selectListing, clearSelectedListing } = listingsSlice.actions;
 export default listingsSlice.reducer;

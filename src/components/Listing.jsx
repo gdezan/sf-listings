@@ -9,12 +9,19 @@ import { ListingType } from "../types";
 import ApartmentImage from "../assets/apartment.jpg";
 import LikeButton from "./LikeButton";
 
-const Listing = ({ listing }) => {
+const Listing = ({ listing, onClick }) => {
   const [isLiked, setIsLiked] = useState(false);
   const { bedrooms, addressLine1, bathrooms, price, formattedAddress } = listing;
 
   return (
-    <Grid bgColor="white" my={10} templateColumns="40% 50%" columnGap={8}>
+    <Grid
+      bgColor="white"
+      my={10}
+      templateColumns="40% 50%"
+      columnGap={8}
+      cursor="pointer"
+      onClick={onClick}
+    >
       <Image borderRadius={12} w="100%" src={ApartmentImage} alt="Apartment" />
       <Box>
         <Heading as="h2" fontSize="2xl" fontWeight={700} mb={2}>

@@ -47,13 +47,6 @@ const OrderBy = ({ orderingType, ordering, setOrderingType }) => {
           orderingType={orderingType}
           setOrderingType={setOrderingType}
         />
-        <OrderByMenuItem
-          label="Square footage"
-          value={OrderingTypes.SQUARE_FOOTAGE}
-          ordering={ordering}
-          orderingType={orderingType}
-          setOrderingType={setOrderingType}
-        />
       </MenuList>
     </Menu>
   );
