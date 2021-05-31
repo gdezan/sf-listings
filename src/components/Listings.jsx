@@ -51,9 +51,14 @@ const Listings = ({
           />
         </HStack>
       </Flex>
-      <Box w="100%" h="100%" minH="100%" overflow="auto" px={8}>
+      <Box w="100%" h="100%" minH="100%" overflow="auto" px={4}>
         {listings.map(listing => (
-          <Listing key={listing.id} listing={listing} onClick={() => onListingClick(listing)} />
+          <Listing
+            key={listing.id}
+            listing={listing}
+            onClick={() => onListingClick(listing)}
+            isSelected={listing.id === selectedListing?.id}
+          />
         ))}
       </Box>
     </Box>

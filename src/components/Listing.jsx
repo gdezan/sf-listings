@@ -9,18 +9,27 @@ import { ListingType } from "../types";
 import ApartmentImage from "../assets/apartment.jpg";
 import LikeButton from "./LikeButton";
 
-const Listing = ({ listing, onClick }) => {
+const Listing = ({ listing, onClick, isSelected }) => {
   const [isLiked, setIsLiked] = useState(false);
   const { bedrooms, addressLine1, bathrooms, price, formattedAddress } = listing;
 
   return (
     <Grid
       bgColor="white"
-      my={10}
+      my={4}
       templateColumns="40% 50%"
       columnGap={8}
       cursor="pointer"
       onClick={onClick}
+      _hover={{
+        bgColor: "gray.100",
+      }}
+      px={4}
+      py={6}
+      borderRadius={12}
+      transition="background-color 0.3s ease, border-color 0.3s ease"
+      border="2px solid"
+      borderColor={isSelected ? "blue.500" : "transparent"}
     >
       <Image borderRadius={12} w="100%" src={ApartmentImage} alt="Apartment" />
       <Box>
