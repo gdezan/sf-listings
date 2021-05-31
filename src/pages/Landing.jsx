@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Box } from "@chakra-ui/layout";
+import { Grid } from "@chakra-ui/layout";
 
 import {
   clearSelectedListing,
@@ -11,12 +11,34 @@ import {
 import { search } from "../reducers/Ui";
 import useIsMobile from "../hooks/useIsMobile";
 
-import MapView from "../components/MapView";
 import Listings from "../components/Listings";
 import Loading from "./Loading";
 import SearchBar from "../components/SearchBar";
 import useListingSearch from "../hooks/useListingSearch";
 import MapBox from "../components/MapBox";
+
+const Wrapper = ({ children, isMobile, selectedListing }) => {
+  if (isMobile) {
+    return (
+      <Grid
+        templateColumns="100% 100%"
+        h="100%"
+        minH="100%"
+        overflow={selectedListing ? "visible" : "hidden"}
+        transition="transform 0.4s ease"
+        transform={`translateX(${selectedListing ? -100 : 0}%)`}
+      >
+        {children}
+      </Grid>
+    );
+  }
+
+  return (
+    <Grid templateColumns="60% 40%" h="100%">
+      {children}
+    </Grid>
+  );
+};
 
 const LandingPage = () => {
   const dispatch = useDispatch();
@@ -34,34 +56,13 @@ const LandingPage = () => {
     dispatch(fetchListings());
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log(searchText);
-  }, [searchText]);
-
   if (isLoadingListings) {
     return <Loading />;
   }
 
-  if (isMobile) {
-    return (
-      <Grid templateColumns="1fr" templateRows="40vh 60vh" h="100%">
-        <MapView listings={listings} />
-        <Box>
-          <SearchBar search={searchText => dispatch(search(searchText))} searchText={searchText} />
-          <Listings
-            listings={listings}
-            ordering={ordering}
-            setOrderingType={type => dispatch(setOrderingType(type))}
-            orderingType={orderingType}
-          />
-        </Box>
-      </Grid>
-    );
-  }
-
   return (
-    <Grid templateColumns="60% 40%" h="100%">
-      <Grid h="100%" overflow="hidden" templateRows="108px 0.94fr">
+    <Wrapper selectedListing={selectedListing} isMobile={isMobile}>
+      <Grid h="100%" minH="100%" overflowY="hidden" templateRows="auto 1fr">
         <SearchBar search={searchText => dispatch(search(searchText))} searchText={searchText} />
         <Listings
           listings={listings}
@@ -73,9 +74,12 @@ const LandingPage = () => {
           clearSelectedListing={() => dispatch(clearSelectedListing())}
         />
       </Grid>
-      <MapBox listings={listings} selectedListing={selectedListing} />
-      {/* <MapView listings={listings} /> */}
-    </Grid>
+      <MapBox
+        listings={listings}
+        selectedListing={selectedListing}
+        clearSelectedListing={() => dispatch(clearSelectedListing())}
+      />
+    </Wrapper>
   );
 };
 

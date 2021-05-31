@@ -28,7 +28,7 @@ const OrderBy = ({ orderingType, ordering, setOrderingType }) => {
   return (
     <Menu closeOnSelect={false}>
       <MenuButton as={Button} variant="ghost" rightIcon={<BsChevronDown />}>
-        <Text fontWeight="400" color="gray.500">
+        <Text fontWeight="400" color="gray.500" fontSize={["sm", "sm", "md"]}>
           Order by
         </Text>
       </MenuButton>

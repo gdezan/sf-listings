@@ -8,6 +8,7 @@ body {
   height: 100%;
   width: 100%;
   margin: 0;
+  position: relative;
 }
 
 html,
@@ -101,6 +102,7 @@ video {
   /* font-family: "Hind", sans-serif; */
   font-family: "Asap", sans-serif;
   color: #222222;
+  box-sizing: border-box;
 }
 /* HTML5 display-role reset for older browsers */
 article,

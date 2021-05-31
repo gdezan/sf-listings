@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import { Box } from "@chakra-ui/layout";
 import styled from "@emotion/styled";
+import { IconButton } from "@chakra-ui/button";
+import { BsChevronLeft } from "react-icons/bs";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZ2RlemFuIiwiYSI6ImNrcGJpOTk3czB5ZXoydW1uYzBpNzc1anIifQ.Fz7gK5bnfHqqi0n8weTypg";
@@ -12,7 +14,7 @@ const CustomMapBox = styled(Box)`
   }
 `;
 
-const MapBox = ({ listings, selectedListing }) => {
+const MapBox = ({ listings, selectedListing, clearSelectedListing }) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [iniLat, iniLng, iniZoom] = [37.753834, -122.440733, 12];
@@ -83,9 +85,20 @@ const MapBox = ({ listings, selectedListing }) => {
   }, [iniLat, iniLng, iniZoom, selectedListing]);
 
   return (
-    // <Box>
-    <CustomMapBox h="100%" maxH="100%" ref={mapContainer} />
-    // </Box>
+    <Box position="relative" zIndex={2000}>
+      <CustomMapBox h="100%" maxH="100%" ref={mapContainer} />
+      <IconButton
+        icon={<BsChevronLeft />}
+        position="absolute"
+        top={4}
+        left={4}
+        borderRadius="50%"
+        bgColor="white"
+        boxShadow="md"
+        onClick={clearSelectedListing}
+        zIndex={2}
+      />
+    </Box>
   );
 };
 

@@ -17,7 +17,7 @@ const SearchBar = ({ search, searchText: initialText }) => {
   };
 
   return (
-    <Box as={"form"} px={8} pt={10} pb={5} onSubmit={onSubmit}>
+    <Box as={"form"} px={[4, 4, 8]} pt={10} pb={5} onSubmit={onSubmit}>
       <InputGroup size="lg">
         <Input
           type={"text"}
