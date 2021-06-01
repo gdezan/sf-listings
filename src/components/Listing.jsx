@@ -77,6 +77,9 @@ const Listing = ({ listing, onClick, isSelected }) => {
 
 Listing.propTypes = {
   listing: ListingType,
+  isSelected: PropTypes.bool,
+
+  onClick: PropTypes.func.isRequired,
 };
 
 const InfoText = ({ children }) => (
@@ -84,5 +87,8 @@ const InfoText = ({ children }) => (
     {children}
   </Text>
 );
+InfoText.propTypes = {
+  children: PropTypes.node,
+};
 
 export default Listing;

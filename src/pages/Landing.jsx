@@ -16,6 +16,7 @@ import Loading from "./Loading";
 import SearchBar from "../components/SearchBar";
 import useListingSearch from "../hooks/useListingSearch";
 import MapBox from "../components/MapBox";
+import { ListingType } from "../types";
 
 const Wrapper = ({ children, isMobile, selectedListing }) => {
   if (isMobile) {
@@ -38,6 +39,11 @@ const Wrapper = ({ children, isMobile, selectedListing }) => {
       {children}
     </Grid>
   );
+};
+Wrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+  isMobile: PropTypes.bool,
+  selectedListing: ListingType,
 };
 
 const LandingPage = () => {

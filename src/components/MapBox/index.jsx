@@ -1,12 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import { renderToString } from "react-dom/server";
-import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+import mapboxgl from "!mapbox-gl";
 import { Box } from "@chakra-ui/layout";
 import styled from "@emotion/styled";
 import { IconButton } from "@chakra-ui/button";
 import { BsChevronLeft } from "react-icons/bs";
 
 import Popup from "./Popup";
+import { ListingsType, ListingType } from "../../types";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZ2RlemFuIiwiYSI6ImNrcGJpOTk3czB5ZXoydW1uYzBpNzc1anIifQ.Fz7gK5bnfHqqi0n8weTypg";
@@ -123,6 +124,11 @@ const MapBox = ({ listings, selectedListing, clearSelectedListing }) => {
   );
 };
 
-MapBox.propTypes = {};
+MapBox.propTypes = {
+  listings: ListingsType,
+  selectedListing: ListingType,
+
+  clearSelectedListing: PropTypes.func.isRequired,
+};
 
 export default MapBox;

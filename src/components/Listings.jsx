@@ -4,7 +4,7 @@ import { IconButton } from "@chakra-ui/button";
 import { AiFillAppstore } from "react-icons/ai";
 import { ImMenu } from "react-icons/im";
 
-import { ListingsType } from "../types";
+import { ListingsType, ListingType } from "../types";
 
 import Listing from "./Listing";
 import OrderBy from "./OrderBy";
@@ -71,6 +71,13 @@ const Listings = ({
 };
 Listings.propTypes = {
   listings: ListingsType,
+  ordering: PropTypes.string,
+  orderingType: PropTypes.string,
+  selectedListing: ListingType,
+
+  setOrderingType: PropTypes.func.isRequired,
+  selectListing: PropTypes.func.isRequired,
+  clearSelectedListing: PropTypes.func.isRequired,
 };
 
 export default Listings;

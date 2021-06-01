@@ -55,6 +55,8 @@ const SearchBar = ({ search, searchText: initialText }) => {
 };
 
 SearchBar.propTypes = {
+  searchText: PropTypes.string,
+
   search: PropTypes.func.isRequired,
 };
 

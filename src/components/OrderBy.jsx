@@ -23,6 +23,14 @@ const OrderByMenuItem = ({ label, value, ordering, orderingType, setOrderingType
     {label}
   </MenuItem>
 );
+OrderByMenuItem.propTypes = {
+  label: PropTypes.string,
+  value: PropTypes.string,
+  orderingType: PropTypes.string.isRequired,
+  ordering: PropTypes.string.isRequired,
+
+  setOrderingType: PropTypes.func.isRequired,
+};
 
 const OrderBy = ({ orderingType, ordering, setOrderingType }) => {
   return (
@@ -52,6 +60,11 @@ const OrderBy = ({ orderingType, ordering, setOrderingType }) => {
   );
 };
 
-OrderBy.propTypes = {};
+OrderBy.propTypes = {
+  orderingType: PropTypes.string.isRequired,
+  ordering: PropTypes.string.isRequired,
+
+  setOrderingType: PropTypes.func.isRequired,
+};
 
 export default OrderBy;
