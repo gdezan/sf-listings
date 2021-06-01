@@ -1,9 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
+import { renderToString } from "react-dom/server";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import { Box } from "@chakra-ui/layout";
 import styled from "@emotion/styled";
 import { IconButton } from "@chakra-ui/button";
 import { BsChevronLeft } from "react-icons/bs";
+
+import Popup from "./Popup";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZ2RlemFuIiwiYSI6ImNrcGJpOTk3czB5ZXoydW1uYzBpNzc1anIifQ.Fz7gK5bnfHqqi0n8weTypg";
@@ -13,6 +16,12 @@ const CustomMapBox = styled(Box)`
     display: none;
   }
 `;
+
+const addStyle = (element, styleObj) => {
+  for (const key of Object.keys(styleObj)) {
+    element.style[key] = styleObj[key];
+  }
+};
 
 const MapBox = ({ listings, selectedListing, clearSelectedListing }) => {
   const mapContainer = useRef(null);
@@ -47,22 +56,34 @@ const MapBox = ({ listings, selectedListing, clearSelectedListing }) => {
 
     const newMarkers = [];
     for (const listing of listings) {
-      const popup = new mapboxgl.Popup({ offset: 25 }).setText(listing.addressLine1);
+      const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+        renderToString(<Popup listing={listing} />),
+      );
+
+      addStyle(popup._content, { padding: "16px", borderRadius: "12px" });
+
+      const closeButtonEl = popup._content.childNodes[1];
+      addStyle(closeButtonEl, {
+        padding: "4px",
+        margin: "4px",
+        marginRight: "8px",
+        fontSize: "16px",
+      });
 
       const MarkerElement = document.createElement("div");
-      MarkerElement.className = "marker";
-      MarkerElement.style.backgroundImage = "url(https://i.imgur.com/pUXicoF.png)";
+      addStyle(MarkerElement, {
+        backgroundImage: "url(https://i.imgur.com/pUXicoF.png)",
+        width: "30px",
+        height: "30px",
+        backgroundSize: "100%",
+      });
 
-      MarkerElement.style.width = "30px";
-      MarkerElement.style.height = "30px";
-      MarkerElement.style.backgroundSize = "100%";
+      const newMarker = new mapboxgl.Marker(MarkerElement)
+        .setLngLat([listing.longitude, listing.latitude])
+        .setPopup(popup)
+        .addTo(map.current);
 
-      newMarkers.push(
-        new mapboxgl.Marker(MarkerElement)
-          .setLngLat([listing.longitude, listing.latitude])
-          .setPopup(popup)
-          .addTo(map.current),
-      );
+      newMarkers.push(newMarker);
     }
     setMarkers(newMarkers);
   }, [listings, markers]);
